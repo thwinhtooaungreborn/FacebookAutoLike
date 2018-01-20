@@ -25,6 +25,13 @@ Disabling `shouldClickCommentLikeButtons` will ignore like buttons from comment 
 
 Currently `callbackInterval` is set to `0.5` seconds. Any other value lower than this will result in banning from facebook for like button feature. Eventhough 0.5 is enough for normal conditions, you are vulnerable from banning if your internet connection speed is slow or your browser is slow.
 
+You can change `callbackInterval` by doing this
+```js
+__scriptInjectionInstance.stop(); // stop to make sure callbackInterval will be used in next start
+__scriptInjectionInstance.callbackInterval = 1; // 1 seconds
+__scriptInjectionInstance.start(); // start your auto like
+```
+
 *Now go to your crush's profile and start giving like bombs*
 
 **Have fun injecting!**
