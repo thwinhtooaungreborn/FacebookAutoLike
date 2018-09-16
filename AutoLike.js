@@ -21,7 +21,7 @@ var __scriptInjectionInstance = window.__scriptInjectionInstance || {
 
 	shouldClickPostLikeButtons: true,
 
-	shouldClickCommentLikeButtons: true,
+	shouldClickCommentLikeButtons: false,
 
 	counter: 0,
 
@@ -29,15 +29,15 @@ var __scriptInjectionInstance = window.__scriptInjectionInstance || {
 	callback: function() {
 
 		var own = __scriptInjectionInstance;
-		console.log("This is called");
+		console.log("Closure Incantated.");
 
 		var likeButtons = document.getElementsByClassName("UFILikeLink");
 
 		var currentLikeButton = likeButtons[own.counter]
 
 		if (!currentLikeButton) {
-			console.log("Button is nil. Skipping .....");
-			own.counter += 1;
+			console.log("Button is nil. Waiting for Tab to become focused .....");
+			// own.counter += 1;
 			return;
 		}
 
