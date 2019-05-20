@@ -40,7 +40,7 @@ nexyAutoLikeEngine.kInterval = 1; // 1 seconds
 nexyAutoLikeEngine.start(); // start your auto like
 ```
 
-*Now go to your someone else's profile, start giving like bombs and get attention from them.*
+*Now go to someone else's profile, start giving like bombs and get attention from them.*
 
 **Have fun injecting!**
 
