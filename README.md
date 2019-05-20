@@ -1,37 +1,43 @@
 # FacebookAutoLike
 
+**Disclaimer**
+> This code may be subject to change in the future with relative to Facebook codebase.
+
 In your browser console, copy paste the contents inside the file "AutoLike.js".
+
+Create your engine.
+
+```js
+var nexyAutoLikeEngine = NexyAutoLikeEngine()
+```
 
 Then, start auto liking by calling 
 ```js
-__scriptInjectionInstance.start();
+nexyAutoLikeEngine.start();
 ```
 
 You can then stop your auto likes by calling
 ```js
-__scriptInjectionInstance.stop();
+nexyAutoLikeEngine.stop();
 ```
 
-If you wish to restart from the start, calling the following will do the job.
-```js
-__scriptInjectionInstance.reset();
-```
+By default, `nexyAutoLikeEngine.shouldLikePosts` is flagged as `true` but `nexyAutoLikeEngine.shouldLikecomments` is flagged as `false`.
 
-By default, `__scriptInjectionInstance.shouldClickPostLikeButtons` and `__scriptInjectionInstance.shouldClickCommentLikeButtons` are flagged as `true`.
-
-Disabling one of them of your choice will alter the liking sequence.  
+Disabling or enabling one of them of your choice will alter the like sequence.  
 Disabling `shouldClickPostLikeButtons` will ignore like buttons from facebook posts.  
 Disabling `shouldClickCommentLikeButtons` will ignore like buttons from comment sections.  
 
-Currently `callbackInterval` is set to `0.5` seconds. Any other value lower than this will result in banning from facebook for like button feature. Eventhough 0.5 is enough for normal conditions, you are vulnerable from banning if your internet connection speed is slow or your browser is slow.
+Currently `kInterval` is set to `1` second. Any other value lower than `0.5` will potentially result in banning from facebook for like or reaction feature. Eventhough 0.5 is enough for normal conditions, you are vulnerable from banning if your internet connection speed is slow or your browser is slow.
 
-You can change `callbackInterval` by doing this
+You can change `kInterval` by doing this
 ```js
-__scriptInjectionInstance.stop(); // stop to make sure callbackInterval will be used in next start
-__scriptInjectionInstance.callbackInterval = 1; // 1 seconds
-__scriptInjectionInstance.start(); // start your auto like
+nexyAutoLikeEngine.stop(); // stop to make sure callbackInterval will be used in next start
+nexyAutoLikeEngine.kInterval = 1; // 1 seconds
+nexyAutoLikeEngine.start(); // start your auto like
 ```
 
-*Now go to your crush's profile and start giving like bombs*
+*Now go to your someone else's profile, start giving like bombs and get attention from them.*
 
 **Have fun injecting!**
+
+
