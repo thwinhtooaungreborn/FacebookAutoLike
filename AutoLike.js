@@ -1,135 +1,92 @@
+function NexyAutoLikeEngine() {
+    var obj = {
 
-var __scriptInjectionInstance = window.__scriptInjectionInstance || {
-	/*
-		to handle timer token
-	*/
-	timeToken: null,
-
-	callbackInterval: 0.5,
-
-	constant: {
-		post: {
-			unliked: "fb-ufi-likelink",
-			liked: "fb-ufi-unlikelink"	
-		},
-		comment: {
-			unliked: "ufi_comment_like_link"
-		}
-		
-	},
+        currentIndex: 0,
+        kInterval: (1), // 0.5 second
+        timerToken: null,
+        shouldLikePost: true,
+        shouldLikeComments: false,
+    
+        // Summon the almighty auto like demon lucifucker.
+        // Wahahahaha ha ha ha ha hah ah aksjfdkljaslfjlasjdf
+        // fuck this.
+        // lasjflkasdfl kjaslfj lasdlk f
+        start: function() {
 
 
-	shouldClickPostLikeButtons: true,
+            if (this.timerToken == null) {
+                // captuer the token
 
-	shouldClickCommentLikeButtons: false,
+                this.timerToken = setInterval(function() {
 
-	counter: 0,
+                    var buttons = document.querySelectorAll('[data-testid="UFI2ReactionLink"]')
+                    var currentButton = buttons[obj.currentIndex]
 
-	// main callback function 
-	callback: function() {
+                    if (currentButton) {
 
-		var own = __scriptInjectionInstance;
-		console.log("Closure Incantated.");
+                        console.log("button parent id is ", currentButton.parentElement.parentElement.getAttribute('data-testid'))
 
-		var likeButtons = document.getElementsByClassName("UFILikeLink");
+                        if (obj.isPost(currentButton) && obj.shouldLikePost) {
+                            if (obj.isPressed(currentButton) == false) {    
+                                currentButton.click()
+                            }
+                            
+                        }
 
-		var currentLikeButton = likeButtons[own.counter]
+                        if (obj.isComment(currentButton) && obj.shouldLikeComments) {
+                            if (obj.isPressed(currentButton) == false) {    
+                                currentButton.click()
+                            }
+                        }
 
-		if (!currentLikeButton) {
-			console.log("Button is nil. Waiting for Tab to become focused .....");
-			// own.counter += 1;
-			return;
-		}
+                        currentButton.scrollIntoView()
+                    }
 
-		currentLikeButton.scrollIntoView();
+                    if (obj.currentIndex < buttons.length) {
+                        obj.currentIndex += 1;
+                    }
 
-		// cheeck if the like button is attached to post or a comment
-		var likeButtonAttribute = currentLikeButton.getAttribute("data-testid") ;
+                    
 
-		console.log("data-testid attribute is ", likeButtonAttribute);
-		// console.log("own.constant.post.unliked - ", own.constant.post.unliked);
-		console.log("own.constant.comment.unliked is ", own.constant.comment.unliked);
+                }, this.kInterval * 1000);
+            }
+        },
+    
+        // Clear the timer token
+        stop: function() {
+            if (this.timerToken != null) {
+                clearInterval(this.timerToken);
+                this.timerToken = null;
+            }
+        },
 
-		// if the like button is attached to a post
-		if (likeButtonAttribute === own.constant.post.unliked) {
+        isPost: function(item) {
+            var flag = false
+            var parentOfParent = item.parentElement.parentElement;
+            if (parentOfParent.getAttribute('data-testid') == 'UFI2ReactionLink/actionLink') {
+                flag = true
+            }
+            return flag
+        },
 
-			console.log("it is matched with own.constant.post.unliked - ", own.constant.post.unliked);
+        isComment: function(item) {
+            var flag = false
+            var parentOfParent = item.parentElement.parentElement;
+            if (parentOfParent.getAttribute('data-testid') == 'UFI2ReactionLink/comment') {
+                flag = true
+            }
+            return flag
+        }, 
 
-			// if post like buttons should be clicked
-			if (own.shouldClickPostLikeButtons) {
-				// if the button is not already liked or clicked
-				console.log("And is also permitted to click");
-				if ( !currentLikeButton.className.includes("UFILinkBright") ) {
-					// click the like button
-					console.log("it does not contain UFILinkBright");
-					currentLikeButton.click();
-				} else {
-					console.log("it contains UFILinkBright. WTF!");
-				}
-			}
-		} 
+        isPressed: function(item) {
+            var flag = false
+            if (item.getAttribute('aria-pressed') == "true") {
+                flag = true
+            }
+            return flag
+        }
+    
+    };
 
-		// if the like button is attached to a comment
-		if (likeButtonAttribute === own.constant.comment.unliked){	
-
-			console.log("matched with own.constant.comment.unliked - ", own.constant.comment.unliked);
-
-			// if the like buttons in comment section should be clicked
-			if (own.shouldClickCommentLikeButtons) {
-
-				console.log("And it is permitted to click");
-				// if the button is not already liked or clicked
-				if ( !currentLikeButton.className.includes("UFILinkBright") ) {
-
-					console.log("It does not contain UFILinkBright");
-					currentLikeButton.click();
-				} else {
-					console.log("It contains UFILinkBright");
-				}
-			} else {
-				console.log("It is not permitted to click");
-			}
-		}
-
-		own.counter += 1;
-	},
-
-	// use to start the injection sequence
-	start: function() {
-		var own = __scriptInjectionInstance;
-
-		// only if the timer token is not active
-		if (own.timerToken == null) {
-			// initialize the sequence
-			own.timerToken = setInterval( own.callback, own.callbackInterval * 1000);
-		}
-	},
-	// use to stop the injection sequence
-	stop: function() {
-		var own = __scriptInjectionInstance;
-
-		// only if the timer token is active
-		// not equal to null mean it's active and alive
-		if (own.timerToken != null) {
-			clearInterval(own.timerToken);
-			own.timerToken = null;
-		}
-	},
-
-	reset: function() {
-		var own = __scriptInjectionInstance;
-
-		var wasStopped = false;
-		if (own.timerToken != null) {
-			own.stop();
-			wasStopped = true;
-		}
-
-		own.counter = 0;
-
-		if (wasStopped) {
-			own.start();
-		}
-
-	}
-};
+    return obj;
+}
