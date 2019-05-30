@@ -3,7 +3,7 @@
 **Disclaimer**
 > This code may be subject to change in the future with relative to Facebook codebase.
 
-**Limitaitons**
+**Limitations**
 > • Can only give likes. Cannot undone given likes.  
 > • Reactions are not yet able to be clicked. I'm working on it at my free time.
 
