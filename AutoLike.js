@@ -15,7 +15,7 @@ function NexyAutoLikeEngine() {
 
 
             if (this.timerToken == null) {
-                // captuer the token
+                // capture the token
 
                 this.timerToken = setInterval(function() {
 
